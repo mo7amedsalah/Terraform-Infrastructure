@@ -1,0 +1,22 @@
+pipeline {
+   agent any
+
+   stages {
+      stage('init') {
+         steps {
+            sh "terraform init -var ak=\ "${env.AWS_ACCESS_KEY_ID}\" -var sk=\ "&{env.AWS.AWS_SECRET_ACCESS_KEY}\""
+         }
+      }
+      stage('plan') {
+         steps {
+            sh"terraform plan -var-file dev.tfvars"
+         }
+      }
+      stage('plan') {
+         steps {
+            sh "terraform apply -var-file dev.tfvars"
+         }
+      }
+      
+   }
+}

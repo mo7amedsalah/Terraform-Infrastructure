@@ -79,6 +79,12 @@ variable "privateRoute_tag" {
 variable "secret_manager" {
   type    = "string"
 }
+variable "ak" {
+  
+}
+variable "sk" {
+  
+}
 
 
 
