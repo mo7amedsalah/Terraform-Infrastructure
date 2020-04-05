@@ -11,6 +11,7 @@ resource "aws_key_pair" "deployer" {
 }
 resource "aws_secretsmanager_secret" "secret_ssh" {
   name = "${var.secret_manager}"
+  recovery_window_in_days = 0
 }
 
 resource "aws_secretsmanager_secret_version" "secret_ssh_version" {
