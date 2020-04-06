@@ -28,4 +28,4 @@ publicRoute_tag= "publicRoute"
 # public Route
 privateRoute_tag= "privateRoute"
 # secret manager
-secret_manager= "keygen-ssh"
+secret_manager= "keygenerate-ssh"
