@@ -6,7 +6,7 @@ resource "tls_private_key" "ssh_key" {
 
 }
 resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
+  key_name   = "deployer2-key"
   public_key = "${tls_private_key.ssh_key.public_key_openssh}"
 }
 resource "aws_secretsmanager_secret" "secret_ssh" {
