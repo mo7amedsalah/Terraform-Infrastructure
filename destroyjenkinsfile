@@ -1,0 +1,11 @@
+pipeline {
+   agent any
+
+   stages {
+      stage('Destroy') {
+         steps {
+            sh "terraform apply -auto-approve -var-file dev.tfvars"
+         }
+      }
+   }
+}
