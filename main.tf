@@ -6,7 +6,7 @@ module "public_instance_1" {
   key= "${aws_key_pair.deployer.key_name}"
   subnet= "${aws_subnet.subnet1.id}"
   associate_public_ip = true
-  security_groups = ["${aws_security_group.allow_http.id}"]
+  security_groups = ["${aws_security_group.allow_http.id}","${aws_security_group.allow_bastion_ssh.id}"]
 }
 
 #  ec2 -2
@@ -17,7 +17,7 @@ module "public_instance_2" {
   key= "${aws_key_pair.deployer.key_name}"
   subnet= "${aws_subnet.subnet3.id}"
   associate_public_ip = true
-  security_groups = ["${aws_security_group.allow_http.id}"]
+  security_groups = ["${aws_security_group.allow_http.id}","${aws_security_group.allow_bastion_ssh.id}"]
 }
 
 #  ec2 -3
@@ -39,6 +39,8 @@ module "nodejs-1" {
   key= "${aws_key_pair.deployer.key_name}"
   subnet= "${aws_subnet.subnet2.id}"
   associate_public_ip = false
+  security_groups = ["${aws_security_group.allow_bastion_ssh}"]
+  
 }
 
 # pv-ec2 -2
@@ -49,6 +51,7 @@ module "nodejs-2" {
   key= "${aws_key_pair.deployer.key_name}"
   subnet= "${aws_subnet.subnet4.id}"
   associate_public_ip = false
+  security_groups = ["${aws_security_group.allow_bastion_ssh}"]
 }
 
 # pastion security group
@@ -99,5 +102,29 @@ resource "aws_security_group" "allow_http" {
 
   tags = {
     Name = "allow_http"
+  }
+}
+resource "aws_security_group" "allow_bastion_ssh" {
+  name        = "allow_bastion_ssh"
+  description = "allow bastion inbound traffic"
+  vpc_id      = "${aws_vpc.main_vpc.id}"
+
+  ingress {
+    description = "ssh from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${aws_vpc.first-vpc.cidr_block}"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_bastion_ssh"
   }
 }
