@@ -107,7 +107,7 @@ resource "aws_security_group" "allow_http" {
 resource "aws_security_group" "allow_bastion_ssh" {
   name        = "allow_bastion_ssh"
   description = "allow bastion inbound traffic"
-  vpc_id      = "${aws_vpc.main_vpc.id}"
+  vpc_id      = "${aws_vpc.first-vpc.id}"
 
   ingress {
     description = "ssh from VPC"
