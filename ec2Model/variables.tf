@@ -22,6 +22,5 @@ variable "associate_public_ip" {
 }
 
 variable "security_groups" {
- type    = list(string)
  default =[]
 }
