@@ -39,7 +39,7 @@ module "nodejs-1" {
   key= "${aws_key_pair.deployer.key_name}"
   subnet= "${aws_subnet.subnet2.id}"
   associate_public_ip = false
-  security_groups = ["${aws_security_group.allow_bastion_ssh}"]
+  security_groups = ["${aws_security_group.allow_bastion_ssh.id}"]
   
 }
 
@@ -51,7 +51,7 @@ module "nodejs-2" {
   key= "${aws_key_pair.deployer.key_name}"
   subnet= "${aws_subnet.subnet4.id}"
   associate_public_ip = false
-  security_groups = ["${aws_security_group.allow_bastion_ssh}"]
+  security_groups = ["${aws_security_group.allow_bastion_ssh.id}"]
 }
 
 # pastion security group
